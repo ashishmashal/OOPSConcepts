@@ -1,64 +1,48 @@
-package com.bridgelabz.oopspart4;
 
-public class BinarySearch {
+package com.bridgelabz.oopspart4;
+public class BinarySearch<K> implements Comparable{
     Node root;
-    BinarySearch()
-    {
+
+    public BinarySearch(){
         root = null;
     }
-    Node insertRec(Node node, int data)
-    {
-        /* If the tree is empty, return a new node */
-        if (node == null) {
-            this.root = new Node(data);
-            return this.root;
+    void insert(int key)  {
+        root = insert_Recursive(root, key);
+    }
+
+    //recursive insert function
+    Node insert_Recursive(Node root, int key) {
+        //tree is empty
+        if (root == null) {
+            root = new Node(key);
+            return root;
         }
+        //traverse the tree
+        if (key < root.key)     //insert in the left subtree
+            root.left = insert_Recursive(root.left, key);
+        else if (key > root.key)    //insert in the right subtree
+            root.right = insert_Recursive(root.right, key);
+        // return pointer
+        return root;
+    }
 
-        /* Otherwise, recur down the tree */
-        if (data <= node.data) {
-            node.left = this.insertRec(node.left, data);
+    // method for inorder traversal of BST
+    void display() {
+        inorder_Recursive(root);
+    }
+
+    // recursively traverse the BST
+    void inorder_Recursive(Node root) {
+        if (root != null) {
+            inorder_Recursive(root.left);
+            System.out.print(root.key + " ");
+            inorder_Recursive(root.right);
         }
-        else {
-            node.right = this.insertRec(node.right, data);
-        }
-        return node;
-    }
-    void inorderUtil(Node node)
-    {
-        if (node == null)
-            return;
-
-        inorderUtil(node.left);
-        System.out.print("<-" + node.data + " ->");
-        inorderUtil(node.right);
     }
 
-    // Inorder traversal of the tree
-    void inorder()
-    {
-        inorderUtil(this.root);
-    }
+    @Override
+    public int compareTo(Object o) {
 
-    public void insert(int data)
-    {
-        this.root = this.insertRec(this.root, data);
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Welcome To Binary Search");
-        BinarySearch tree = new BinarySearch();
-
-        /* Let us create following BST
-              50
-           /     \
-          30      76
-         */
-
-        tree.insert(56);
-        tree.insert(30);
-        tree.insert(76);
-
-        tree.inorder();
-
+        return 0;
     }
 }
