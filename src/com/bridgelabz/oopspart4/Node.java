@@ -1,12 +1,10 @@
 package com.bridgelabz.oopspart4;
+    public class Node {
+        int key;
+        Node left, right;
 
-public class Node {
-    int data;
-    Node left, right;
-
-    Node(int d)
-    {
-        data = d;
-        left = right = null;
+        public Node(int data){
+            key = data;
+            left = right = null;
+        }
     }
-}
